@@ -1,11 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-// src/components/TestimonialsMarquee.tsx
 import { cn } from "@/lib/utils";
 import { TESTIMONIALS } from "./constants";
-// import Image from 'next/image';
 import { Marquee } from "@/components/magicui/marquee";
 import { Testimonial, HighlightedTextProps, TestimonialCardProps, SplitIntoRowsFunction } from "@/types/testimonials";
 import { FC, JSX } from 'react';
+import BlurAccent from "../ui/BlurAccent";
 
 // Split the testimonials into three rows for the marquee
 const splitIntoRows: SplitIntoRowsFunction = (array, rows) => {
@@ -35,7 +34,7 @@ const HighlightedText: FC<HighlightedTextProps> = ({ text }) => {
         if (index % 2 === 0) {
           return <span key={index} className="text-gray-950 dark:text-white">{part}</span>;
         } else {
-          return <span key={index} className="font-medium text-blue-500 dark:text-blue-700">{part}</span>;
+          return <span key={index} className=" font-semibold text-blue-600 dark:text-blue-800">{part}</span>;
         }
       })}
     </>
@@ -54,11 +53,9 @@ const TestimonialCard: FC<TestimonialCardProps> = ({
   return (
     <figure
       className={cn(
-        "relative flex h-full w-64 flex-col cursor-pointer gap-3 overflow-hidden rounded-2xl border p-5 transition-all duration-300 hover:scale-105 hover:shadow-md",
-        // light styles
-        "border-gray-200 bg-white hover:bg-gray-50",
-        // dark styles
-        "dark:border-black dark:bg-black dark:hover:bg-black/80",
+        "relative flex h-full w-80 flex-col cursor-pointer gap-3 overflow-hidden rounded-2xl border p-5 transition-all duration-300 hover:scale-105 hover:shadow-md",
+        "border-gray-300 bg-gray-100 hover:bg-gray-50",
+        "dark:border-gray-900 dark:bg-background dark:hover:bg-black",
       )}
     >
       <div className="flex flex-row items-center gap-3">
@@ -70,10 +67,10 @@ const TestimonialCard: FC<TestimonialCardProps> = ({
           src={userImage} 
         />
         <div className="flex flex-col">
-          <figcaption className="font-serif text-sm font-medium text-gray-900 dark:text-white">
+          <figcaption className="font-serif text-base font-medium text-gray-900 dark:text-white">
             {name}
           </figcaption>
-          <p className="text-xs font-medium text-gray-500 dark:text-blue-400">{username}</p>
+          <p className="text-md font-medium text-gray-500 dark:text-gray-50">{username}</p>
         </div>
       </div>
       
@@ -85,7 +82,7 @@ const TestimonialCard: FC<TestimonialCardProps> = ({
           alt={companyName} 
           className="h-5 w-5 object-contain" 
         />
-        <span className="text-xs font-medium text-gray-900 dark:text-white">
+        <span className="text-md font-medium text-gray-900 dark:text-white">
           {companyName}
         </span>
         <div className="ml-auto flex">
@@ -97,7 +94,7 @@ const TestimonialCard: FC<TestimonialCardProps> = ({
         </div>
       </div>
       
-      <blockquote className="font-serif text-sm leading-relaxed">
+      <blockquote className="font-serif text-md leading-relaxed">
         <HighlightedText text={review} />
       </blockquote>
     </figure>
@@ -108,39 +105,34 @@ export function TestimonialsMarquee(): JSX.Element {
   return (
     <div className="w-full py-16">
       <div className="relative w-full -mt-12 overflow-hidden py-10">
-        <Marquee 
-          pauseOnHover 
-          className="py-4 [--duration:35s] [--gap:1rem]"
-        >
+        {/* First row */}
+        <Marquee pauseOnHover className="py-4 [--duration:35s] [--gap:1rem]">
           {firstRow.map((testimonial) => (
             <TestimonialCard key={testimonial.username} {...testimonial} />
           ))}
         </Marquee>
         
         {/* Second row */}
-        <Marquee 
-          pauseOnHover 
-          reverse 
-          className="py-4 [--duration:45s] [--gap:1rem]"
-        >
+        <Marquee pauseOnHover reverse className="py-4 [--duration:45s] [--gap:1rem]">
           {secondRow.map((testimonial) => (
             <TestimonialCard key={testimonial.username} {...testimonial} />
           ))}
         </Marquee>
         
         {/* Third row */}
-        <Marquee 
-          pauseOnHover 
-          className="py-4 [--duration:40s] [--gap:1rem]"
-        >
+        <Marquee pauseOnHover className="py-4 [--duration:40s] [--gap:1rem]">
           {thirdRow.map((testimonial) => (
             <TestimonialCard key={testimonial.username} {...testimonial} />
           ))}
         </Marquee>
         
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-20 bg-gradient-to-r from-white/10 dark:from-black/10 backdrop-blur-[2px]"></div>
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-20 bg-gradient-to-l from-white/10 dark:from-black/10 backdrop-blur-[2px]"></div>
-
+        {/* Gradient overlays */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-white dark:from-black" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-white dark:from-black" />
+        
+        {/* Blur accents */}
+        <BlurAccent position="top-left" />
+        <BlurAccent position="bottom-right" />
       </div>
     </div>
   );

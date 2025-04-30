@@ -22,7 +22,7 @@ export function TryNuro() {
       </div>
       
       <div className="relative -mt-24 h-96 w-full overflow-hidden [mask-image:radial-gradient(50%_50%,white,transparent)]">
-        <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#e82a96,transparent_70%)] before:opacity-40" />
+        <div className="absolute inset-0 before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_bottom_center,#4f46e5,transparent_70%)] before:opacity-40" />
         <div className="absolute -left-1/2 top-1/2 aspect-[1/0.7] z-10 w-[200%] rounded-[100%] border-t border-zinc-900/20 dark:border-white/20 bg-white dark:bg-zinc-900" />
         <Sparkles
           background="transparent"
@@ -31,7 +31,7 @@ export function TryNuro() {
           speed={0.5}
           minSpeed={1}
           density={5000}
-          color="#ffff"      // Changed to a fuchsia color
+          color="#ffff"      // Changed to match gradient
           opacity={0.8}
           minOpacity={0.1}
         />

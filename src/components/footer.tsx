@@ -8,6 +8,8 @@ import { ChevronsUpDown } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast } from 'sonner'
+import Aurora from '../../Animations/AnimatedContainer/Aurora/Aurora'
+
 
 const links = [
     {
@@ -161,6 +163,9 @@ export default function FooterSection() {
     }
 
     return (
+        <>
+  
+  
         <footer className="border-b bg-white pt-20 dark:bg-transparent">
             <div className="mb-8 border-b md:mb-12">
                 <div className="mx-auto flex max-w-5xl flex-wrap items-end justify-between gap-6 px-6 pb-6">
@@ -338,7 +343,7 @@ export default function FooterSection() {
                             />
                             <select
                                 className={cn(
-                                    'border-input file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground shadow-xs flex h-9 w-full min-w-32 appearance-none rounded-md border bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
+                                    'border-input file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground shadow-xs flex h-9 w-full min-w-32 appearance-none rounded-md  bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
                                     'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
                                     'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive'
                                 )}
@@ -354,5 +359,7 @@ export default function FooterSection() {
                 </div>
             </div>
         </footer>
+        <Aurora/>
+        </>
     )
 }

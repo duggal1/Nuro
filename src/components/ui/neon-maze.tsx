@@ -15,9 +15,18 @@ const NeonMaze = () => {
     let animationId: number
     let darkMode = window.matchMedia("(prefers-color-scheme: dark)").matches
 
+    // Updated color sets: electric blue tones for dark mode, modern light blues for light mode
     const colorSets = {
-      dark: ["hsl(220, 90%, 60%)", "hsl(270, 80%, 60%)", "hsl(330, 80%, 60%)"],
-      light: ["hsl(200, 80%, 40%)", "hsl(250, 70%, 50%)", "hsl(300, 70%, 50%)"]
+      dark: [
+        "hsl(195, 100%, 50%)", // bright electric cyan
+        "hsl(200, 100%, 40%)", // deep electric blue
+        "hsl(210, 100%, 30%)"  // darker blue accent
+      ],
+      light: [
+        "hsl(200, 50%, 70%)",  // soft sky blue
+        "hsl(210, 60%, 80%)",  // pale blue highlight
+        "hsl(220, 70%, 90%)"   // very light blue background
+      ]
     }
 
     const updateMode = (e: MediaQueryListEvent) => {
@@ -69,7 +78,7 @@ const NeonMaze = () => {
           ctx.fillStyle = grad
           ctx.fill()
 
-          ctx.strokeStyle = darkMode ? "rgba(255,255,255,0.4)" : "rgba(0,0,0,0.4)"
+          ctx.strokeStyle = darkMode ? "rgba(0,255,255,0.4)" : "rgba(0,0,0,0.4)"
           ctx.lineWidth = 1
           ctx.stroke()
 
@@ -80,7 +89,7 @@ const NeonMaze = () => {
           ctx.lineTo(px + size, py - wave)
           ctx.moveTo(px + size / 2, py + size / 2)
           ctx.lineTo(px + size / 2, py - size / 2 - wave)
-          ctx.strokeStyle = darkMode ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.2)"
+          ctx.strokeStyle = darkMode ? "rgba(0,255,255,0.2)" : "rgba(0,0,0,0.2)"
           ctx.lineWidth = 0.8
           ctx.stroke()
         }
@@ -107,7 +116,8 @@ const NeonMaze = () => {
   }, [])
 
   return (
-    <main className="w-full h-screen overflow-hidden bg-gray-900 dark:bg-gray-100">
+    // Swap default and dark backgrounds: light gets gray-100, dark gets gray-900
+    <main className="w-full h-screen overflow-hidden bg-gray-100 dark:bg-gray-900">
       <canvas ref={canvasRef} className="block" />
     </main>
   )
