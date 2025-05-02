@@ -66,7 +66,7 @@ export default function HeroSection() {
                                 muted
                                 playsInline
                                 loop
-                                className="absolute inset-0 h-full w-full object-cover opacity-50 invert dark:opacity-35 dark:invert-0 dark:lg:opacity-75"
+                                className="absolute inset-0 h-full w-full object-cover opacity-60 invert dark:opacity-35 dark:invert-0 dark:lg:opacity-75"
                             >
                                 <source src="/video/nuro.mp4" type="video/mp4" />
                                 Your browser does not support the video tag.

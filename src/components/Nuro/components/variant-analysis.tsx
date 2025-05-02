@@ -23,7 +23,7 @@ import {
   getNucleotideColorClass,
 } from "@/utils/coloring-utils";
 import { Button } from "@/components/ui/button";
-import { Zap, Sparkles, FlaskConical, ArrowRight, AlertTriangle } from "lucide-react";
+import { Zap, Dna, FlaskConical, ArrowRight, AlertTriangle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -125,7 +125,7 @@ const VariantAnalysis = forwardRef<VariantAnalysisHandle, VariantAnalysisProps>(
         });
         setVariantResult(data);
         toast.success("Variant analysis complete", {
-          icon: <Sparkles className="h-4 w-4" />,
+          icon: <Dna className="h-4 w-4" />,
           description: `Prediction: ${data.prediction}`
         });
       } catch (err) {
@@ -271,9 +271,10 @@ const VariantAnalysis = forwardRef<VariantAnalysisHandle, VariantAnalysisProps>(
                   disabled={isAnalyzing || !variantPosition || !variantAlternative}
                   className={cn(
                     "h-9 cursor-pointer text-xs font-sans text-white",
-                    isDark 
-                      ? "bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110" 
-                      : "bg-gradient-to-r from-indigo-600 to-purple-600 hover:brightness-110"
+                    isDark
+                    ? "bg-gradient-to-r from-purple-700  to-blue-700 hover:brightness-125"
+                    : "bg-gradient-to-r from-blue-600  to-indigo-600 hover:brightness-125"
+                  
                   )}
                   onClick={() =>
                     handleVariantSubmit(
@@ -293,7 +294,7 @@ const VariantAnalysis = forwardRef<VariantAnalysisHandle, VariantAnalysisProps>(
                     </>
                   ) : (
                     <>
-                      <Sparkles className="mr-2 h-3.5 w-3.5" />
+                      <Dna className="mr-2 h-3.5 w-3.5" />
                       Analyze variant
                     </>
                   )}
@@ -338,7 +339,7 @@ const VariantAnalysis = forwardRef<VariantAnalysisHandle, VariantAnalysisProps>(
                       "text-sm font-medium font-sans flex items-center gap-2",
                       isDark ? "text-indigo-300" : "text-indigo-700"
                     )}>
-                      <Sparkles className="h-4 w-4" />
+                      <Dna className="h-4 w-4" />
                       Known Variant Detected
                     </h4>
                     <span className={cn(
@@ -468,7 +469,7 @@ const VariantAnalysis = forwardRef<VariantAnalysisHandle, VariantAnalysisProps>(
                   "mb-4 text-sm font-medium font-sans flex items-center gap-2",
                   isDark ? "text-purple-300" : "text-purple-700"
                 )}>
-                  <Sparkles className="h-4 w-4" />
+                  <Dna className="h-4 w-4" />
                   Analysis Result
                 </h4>
                 

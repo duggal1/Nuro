@@ -75,16 +75,27 @@ const config = {
           from: { transform: "translateY(0)" },
           to: { transform: "translateY(calc(-100% - var(--gap)))" },
         },
+        // Add new orbital animation keyframes
+        orbit: {
+          '0%': { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "marquee": "marquee var(--duration) linear infinite",
         "marquee-vertical": "marquee-vertical var(--duration) linear infinite",
+        // Add new orbital animations
+        'orbit-slow': 'orbit 30s linear infinite',
+        'orbit-fast': 'orbit 20s linear infinite reverse',
+        'self-rotate': 'spin 10s linear infinite',
+        'pulse-slow': 'pulse 8s ease-in-out infinite',
+        'pulse-fast': 'pulse 5s ease-in-out infinite',
       },
     },
   },
   plugins: [],
 } satisfies Config;
 
-export default config; 
+export default config;

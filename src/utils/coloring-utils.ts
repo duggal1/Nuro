@@ -1,15 +1,15 @@
-export function getNucleotideColorClass(nucleotide: string): string {
+export function getNucleotideColorClass(nucleotide: string, isDark = false): string {
   switch (nucleotide.toUpperCase()) {
     case "A":
-      return "text-red-600";
+      return isDark ? "text-rose-400" : "text-rose-600"; // Adenine - Red/Rose
     case "T":
-      return "text-blue-600";
+      return isDark ? "text-sky-400" : "text-sky-600";   // Thymine - Blue/Sky
     case "G":
-      return "text-green-600";
+      return isDark ? "text-emerald-400" : "text-emerald-600"; // Guanine - Green/Emerald
     case "C":
-      return "text-amber-600";
+      return isDark ? "text-amber-400" : "text-amber-600"; // Cytosine - Yellow/Amber
     default:
-      return "text-gray-500";
+      return isDark ? "text-gray-400" : "text-gray-600";
   }
 }
 
