@@ -1,10 +1,11 @@
 "use client"
 
+import { useTheme } from "next-themes"
 import { Sparkles } from "@/components/ui/sparkles"
 
 
 export function TryNuro() {
-
+  const { theme } = useTheme()
   
   return (
     <div className="h-screen w-full overflow-hidden">
@@ -31,7 +32,7 @@ export function TryNuro() {
           speed={0.5}
           minSpeed={1}
           density={5000}
-          color="#ffff"      // Changed to match gradient
+          color={theme === 'dark' ? '#ffffff' : '#000000'}
           opacity={0.8}
           minOpacity={0.1}
         />

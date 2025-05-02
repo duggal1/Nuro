@@ -8,7 +8,7 @@ import { ChevronsUpDown } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { toast } from 'sonner'
-import Aurora from '../../Animations/AnimatedContainer/Aurora/Aurora'
+// import Aurora from '../../Animations/AnimatedContainer/Aurora/Aurora'
 
 
 const links = [
@@ -359,7 +359,7 @@ export default function FooterSection() {
                 </div>
             </div>
         </footer>
-        <Aurora/>
+        {/* <Aurora/> */}
         </>
     )
 }

@@ -135,7 +135,7 @@ export function NuroCTA() {
   return (
     <section 
       ref={containerRef} 
-      className="relative  overflow-hidden bg-gradient-to-b from-white to-slate-100 dark:from-slate-950 dark:to-black transition-colors duration-300"
+      className="relative overflow-hidden bg-gradient-to-b from-white to-slate-100 dark:from-slate-950 dark:to-black transition-colors duration-300 rounded-3xl mx-auto max-w-[95%] lg:max-w-[85%]"
     >
       {/* Background elements */}
       <div className="absolute inset-0 bg-pulse opacity-20 pointer-events-none transition-opacity">
@@ -143,7 +143,7 @@ export function NuroCTA() {
       </div>
       <div className="absolute inset-0 bg-gradient-radial from-indigo-500/10 via-transparent to-transparent dark:from-indigo-500/20 pointer-events-none" />
       
-      <div className="container relative z-10 grid items-center grid-cols-1 gap-6 py-16 md:py-20 md:grid-cols-2 lg:gap-12">
+      <div className="container relative z-10 grid items-center grid-cols-1 gap-6 py-12 md:py-16 md:grid-cols-2 lg:gap-8 max-w-5xl mx-auto px-4">
         {/* Text content section - Improved text alignment and spacing */}
         <div ref={textRef} className="flex flex-col items-start gap-4 md:gap-5 pr-4">
           <motion.div 
@@ -190,7 +190,7 @@ export function NuroCTA() {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
-          className="relative p-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-xl border border-slate-200 dark:border-white/10 shadow-lg overflow-hidden group"
+          className="relative p-5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-white/10 shadow-lg overflow-hidden group"
         >
          
       

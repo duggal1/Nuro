@@ -1,15 +1,17 @@
 "use client";
 
+import { Loader } from "@/components/Loader";
+import ShinyText from "@/components/ui/shiny-text";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { HeroHeader } from '@/components/hero9-header'
+// import { HeroHeader } from '@/components/hero9-header'
 export default function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const router = useRouter();
 
@@ -18,11 +20,11 @@ export default function ProtectedLayout({
       try {
         const { data } = await authClient.getSession();
         setIsAuthenticated(!!data);
-        setIsLoading(false);
       } catch (error) {
         console.error("Error checking authentication:", error);
         setIsAuthenticated(false);
-        setIsLoading(false);
+      } finally {
+        setIsCheckingAuth(false);
       }
     }
     
@@ -30,21 +32,26 @@ export default function ProtectedLayout({
   }, []);
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
+    if (!isCheckingAuth && !isAuthenticated) {
       router.push("/login");
     }
-  }, [isLoading, isAuthenticated, router]);
+  }, [isCheckingAuth, isAuthenticated, router]);
+
+  if (isCheckingAuth) {
+    return (
+      <div className="flex flex-col items-center justify-center h-screen gap-4">
+        <Loader />
+        <ShinyText text="Authenticating..." speed={3} />
+      </div>
+    );
+  }
 
   return (
     <>
-      <HeroHeader/>
-      {isLoading ? (
-        <div className="flex h-screen items-center justify-center">
-          <div className="h-16 w-16 animate-spin rounded-full border-b-2 border-t-2 border-indigo-500"></div>
-        </div>
-      ) : (
-        children
-      )}
+     
+      {/* <HeroHeader/> */}
+      {children}
+     
     </>
   );
-} 
+}

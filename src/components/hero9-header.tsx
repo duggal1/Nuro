@@ -63,7 +63,7 @@ export const HeroHeader = () => {
         <header>
             <nav
                 data-state={menuState && 'active'}
-                className="fixed z-20 w-full pt-2">
+                className="fixed z-20 mb-8 w-full pt-2">
                 <div className={cn('mx-auto max-w-7xl rounded-3xl px-6 transition-all duration-300 lg:px-12', scrolled && 'bg-background/50 backdrop-blur-2xl')}>
                     <motion.div
                         key={1}
@@ -121,7 +121,11 @@ export const HeroHeader = () => {
                                     ))}
                                 </ul>
                             </div>
+
+
                             <ModeToggle/>
+
+
                             <div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
                           
                                 
@@ -132,7 +136,8 @@ export const HeroHeader = () => {
                                                 asChild
                                                 variant="outline"
                                                 size="sm"
-                                                className="bg-blue-500 hover:text-white hover:bg-cyan-500 shadow-xl shadow-gray-300 dark:shadow-gray-50 dark:bg-blue-600 dark:hover:bg-blue-800 text-white ">
+                                                className="bg-black hover:bg-blue-500 dark:hover:bg-blue-700 dark:hover:text-white dark:bg-white dark:text-gray-900 text-white   hover:text-white">
+                                              
                                                
                                                 <Link href="/dashboard">
                                                     <span>Dashboard</span>
