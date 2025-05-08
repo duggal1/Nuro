@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./global.css";
+import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/sonner-provider";
 import FooterSection from '@/components/footer';
