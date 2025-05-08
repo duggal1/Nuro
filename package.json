@@ -34,6 +34,7 @@
     "@react-three/postprocessing": "^3.0.4",
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/runtime": "^1.9.87",
+    "@swc/core": "^1.11.24",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.8.1",
     "@types/d3": "^7.4.3",
@@ -82,8 +83,7 @@
     "tailwindcss": "^4",
     "typescript": "^5.8.3"
   },
-  "optionalDependencies": {
-  },
+  "optionalDependencies": {},
   "engines": {
     "bun": ">=1.0.0"
   }
