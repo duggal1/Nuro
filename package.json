@@ -83,7 +83,6 @@
     "typescript": "^5.8.3"
   },
   "optionalDependencies": {
-    "lightningcss-linux-x64-gnu": "^1.29.3"
   },
   "engines": {
     "bun": ">=1.0.0"
