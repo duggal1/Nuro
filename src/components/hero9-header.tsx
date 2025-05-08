@@ -136,7 +136,7 @@ export const HeroHeader = () => {
                                                 asChild
                                                 variant="outline"
                                                 size="sm"
-                                                className="bg-black hover:bg-blue-500 dark:hover:bg-blue-700 dark:hover:text-white dark:bg-white dark:text-gray-900 text-white   hover:text-white">
+                                                className="bg-black hover:bg-blue-500 dark:hover:bg-blue-700 dark:hover:text-white dark:bg-gray-50 dark:text-gray-900 text-white   hover:text-white">
                                               
                                                
                                                 <Link href="/dashboard">

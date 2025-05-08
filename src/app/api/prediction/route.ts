@@ -1,3 +1,6 @@
+
+
+
 import { NextRequest, NextResponse } from 'next/server'
 import { GoogleGenAI, type Content } from '@google/genai'
 

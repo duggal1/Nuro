@@ -9,9 +9,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { ArrowUpRight } from 'lucide-react'
+import { BioDataPipelineIcon, CRISPRIntegrationIcon, GeneExpressionIDEIcon, PyTorchGenomicsIcon, ResearchKnowledgeBaseIcon, SequencePredictionIcon } from './Nuro-logos'
+import { BlurredStagger } from './ui/blurred-stagger-text'
+import AnimationContainer from './Contanier'
 
-// Import your existing logos
-import { Gemini, Replit, MagicUI, VSCodium, MediaWiki, GooglePaLM } from '@/components/logos'
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -38,37 +39,37 @@ const integrations: Integration[] = [
     {
       title: "CRISPR Integration",
       description: "Plug in your CRISPR gene-editing workflows and get AI-driven analysis for pinpoint DNA targeting and edits.",
-      icon: <Gemini />,
+      icon: <CRISPRIntegrationIcon />,
       link: '/integrations/crispr'
     },
     {
       title: "PyTorch Genomics",
       description: "Run deep-learning models tuned for genomic data to analyze and predict sequence behavior.",
-      icon: <Replit />,
+      icon: <PyTorchGenomicsIcon  />,
       link: '/integrations/pytorch'
     },
     {
       title: "BioData Pipeline",
       description: "Ingest and process massive DNA datasets seamlessly with our optimized ML pipelines.",
-      icon: <MagicUI />,
+      icon: <BioDataPipelineIcon />,
       link: '/integrations/biodata'
     },
     {
       title: "Gene Expression IDE",
       description: "Build and test gene-expression analysis code in an environment tailored for computational biology.",
-      icon: <VSCodium />,
+      icon: <GeneExpressionIDEIcon/>,
       link: '/integrations/genexpression'
     },
     {
       title: "Research Knowledge Base",
       description: "Tap into the latest scientific publications and databases to strengthen your gene-editing models.",
-      icon: <MediaWiki />,
+      icon: <ResearchKnowledgeBaseIcon />,
       link: '/integrations/research'
     },
     {
       title: "Sequence Prediction",
       description: "Use advanced ML predictors to forecast DNA edits and their likely outcomes before you run experiments.",
-      icon: <GooglePaLM />,
+      icon: <SequencePredictionIcon />,
       link: '/integrations/sequence'
     }
   ];
@@ -121,15 +122,16 @@ export default function NuroClients(): JSX.Element {
 
   return (
     <section ref={sectionRef} className="overflow-hidden">
+        <AnimationContainer animation="slide-up" delay={0.3} duration={0.8}>
       <div className="py-24 md:py-32">
         <div className="mx-auto max-w-5xl px-6">
           <div className="text-center">
-            <h2 
-              ref={headingRef} 
-              className="text-balance text-3xl font-semibold md:text-4xl text-gray-900 dark:text-gray-50"
-            >
-              Integrate with cutting-edge research tools
-            </h2>
+      
+          
+            <BlurredStagger 
+            text="Integrate with cutting-edge research tools 🔥" 
+            className="text-balance text-3xl font-semibold md:text-4xl  text-gray-900 dark:text-gray-50"
+            />
             <p 
               ref={descriptionRef} 
               className="text-muted-foreground mt-6 max-w-2xl mx-auto"
@@ -153,6 +155,7 @@ export default function NuroClients(): JSX.Element {
           </div>
         </div>
       </div>
+      </AnimationContainer>
     </section>
   )
 }

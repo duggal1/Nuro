@@ -2,6 +2,8 @@
 
 import { useTheme } from "next-themes"
 import { Sparkles } from "@/components/ui/sparkles"
+import { BlurredStagger } from "../ui/new-text-effect"
+import AnimationContainer from "../Contanier"
 
 
 export function TryNuro() {
@@ -9,16 +11,23 @@ export function TryNuro() {
   
   return (
     <div className="h-screen w-full overflow-hidden">
+        <AnimationContainer animation="slide-up" delay={0.3} duration={0.8}>
       <div className="mx-auto mt-40 w-full max-w-3xl px-4">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-foreground mb-3">
-            <span className="text-indigo-900 dark:text-indigo-200">
-              Trusted by experts.
-            </span>
-          </h2>
-          <h3 className="text-3xl font-medium mt-2">
-            Used by the leaders.
-          </h3>
+          <BlurredStagger 
+              text="Try Nuro " 
+              className="
+                 text-9xl font-black tracking-tight mb-3 text-indigo-800 dark:text-indigo-400
+              "
+          />
+            <BlurredStagger 
+              text="for free" 
+              className="
+                 text-9xl font-black tracking-tight mb-3 text-indigo-800 dark:text-indigo-400
+              "
+          />
+             
+        
         </div>
       </div>
       
@@ -37,6 +46,7 @@ export function TryNuro() {
           minOpacity={0.1}
         />
       </div>
+      </AnimationContainer>
     </div>
   )
 }

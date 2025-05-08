@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Toaster } from "@/components/sonner-provider";
 import FooterSection from '@/components/footer';
 import { Providers } from '@/components/provider';
+import FloatingChatbot from "@/components/chatbot/components/floating-chatbot";
 
 export const metadata: Metadata = {
   title: "Nuro | EVO2 | Genomic Analysis",
@@ -24,6 +25,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
+          <FloatingChatbot/>
           <main className="min-h-screen dark:bg-black bg-white">
             {children}
           </main>

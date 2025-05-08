@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {
+      // enables Server Actions + lets you configure limits
+      bodySizeLimit: "10mb",        // ← bump from 1 MB to 10 MB
+      // allowedOrigins?: string[]  // ← optionally, add custom origins
+    },
+  },
   images: {
     remotePatterns: [
       {
@@ -9,11 +16,9 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: true, // ← Ignore TypeScript errors during build
   },
-  
   async rewrites() {
     return [
       {

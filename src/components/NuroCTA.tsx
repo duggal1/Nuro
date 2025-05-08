@@ -8,6 +8,7 @@ import { useRef, useEffect, useState } from "react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Dna } from "lucide-react"
+import AnimationContainer from "./Contanier"
 
 export function NuroCTA() {
   const [mounted, setMounted] = useState(false);
@@ -137,7 +138,9 @@ export function NuroCTA() {
       ref={containerRef} 
       className="relative overflow-hidden bg-gradient-to-b from-white to-slate-100 dark:from-slate-950 dark:to-black transition-colors duration-300 rounded-3xl mx-auto max-w-[95%] lg:max-w-[85%]"
     >
-      {/* Background elements */}
+
+         <AnimationContainer animation="slide-up" delay={0.3} duration={0.8}>
+
       <div className="absolute inset-0 bg-pulse opacity-20 pointer-events-none transition-opacity">
         <NeonMaze />
       </div>
@@ -252,6 +255,7 @@ export function NuroCTA() {
           </div>
         </motion.div>
       </div>
+     </AnimationContainer>
     </section>
   )
 }

@@ -4,10 +4,14 @@ import React, { ReactNode } from 'react'
 import { Gemini, Replit, MagicUI, VSCodium, MediaWiki, GooglePaLM } from '@/components/logos'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
+import AnimationContainer from './Contanier'
+import { BlurredStagger } from './ui/blurred-stagger-text'
 
 export default function IntegrationsSection() {
     return (
         <section>
+      
+              <AnimationContainer animation="slide-up" delay={0.3} duration={0.8}>
             <div className="py-24 md:py-32">
                 <div className="mx-auto max-w-5xl px-6">
                     <div className="aspect-16/10 group relative mx-auto flex max-w-[22rem] items-center justify-between sm:max-w-sm">
@@ -58,21 +62,32 @@ export default function IntegrationsSection() {
                     </div>
                     </div>
 
-        {/* Text and button */}
+       
         <div className="relative z-20 max-w-lg mx-auto mt-16 space-y-6 text-center">
           <div className="inline-block px-3 py-1 text-md font-medium text-teal-800 bg-teal-100 rounded-full dark:bg-teal-900/30 dark:text-teal-300">
             Trusted by thousands of biotech companies
           </div>
-          <h2 className="text-3xl font-bold text-balance md:text-4xl bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300">
-            Accelerate DNA Sequencing & Mutation Analysis
-          </h2>
-          <p className="text-slate-600 dark:text-slate-300 text-lg">
-            Connect seamlessly with your biotech workflow to enhance genetic analysis and mutation detection using advanced AI.
-          </p>
-        
+       
+          <BlurredStagger 
+  text="Accelerate DNA Sequencing " 
+  className=" block text-4xl font-semibold  tracking-tight lg:text-4xl text-gray-900 dark:text-gray-100"
+/>
+<BlurredStagger 
+  text=" & Mutation Analysis" 
+  className=" text-4xl font-semibold  tracking-tight lg:text-4xl text-gray-900 dark:text-gray-100"
+/>
+          
+      
+<p className='block text-slate-600 dark:text-slate-300 text-lg'>
+Connect seamlessly with your biotech workflow to enhance genetic analysis and mutation detection using advanced AI  
+</p>
+      
+
         </div>
       </div>
+      </AnimationContainer>
     </section>
+    
   )
 }
 type IntegrationCardProps = {

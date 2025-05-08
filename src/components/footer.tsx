@@ -1,365 +1,215 @@
-"use client"
+"use client";
 
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { cn } from '@/lib/utils'
-import { ChevronsUpDown } from 'lucide-react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { toast } from 'sonner'
-// import Aurora from '../../Animations/AnimatedContainer/Aurora/Aurora'
+import * as React from "react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
 
+import { motion } from "framer-motion";
+import { BlurredStagger } from "./ui/blurred-stagger-text";
+import Image from "next/image";
+import AnimationContainer from "./Contanier";
+
+const socials = [
+    {
+      name: "GitHub",
+      href: "https://github.com/your-org",
+      svg: (
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          width="24" 
+          height="24" 
+          fill="none" 
+          viewBox="0 0 48 48" 
+          id="github"
+          className="w-6 h-6"
+        >
+          <rect width="48" height="48" fill="#000" rx="24"></rect>
+          <path 
+            fill="#fff" 
+            fillRule="evenodd" 
+            d="M31.4225 46.8287C29.0849 47.589 26.5901 48 24 48C21.4081 48 18.9118 47.5884 16.5728 46.8272C17.6533 46.9567 18.0525 46.2532 18.0525 45.6458C18.0525 45.3814 18.048 44.915 18.0419 44.2911C18.035 43.5692 18.0259 42.6364 18.0195 41.5615C11.343 43.0129 9.9345 38.3418 9.9345 38.3418C8.844 35.568 7.2705 34.8294 7.2705 34.8294C5.091 33.3388 7.4355 33.369 7.4355 33.369C9.843 33.5387 11.1105 35.8442 11.1105 35.8442C13.2525 39.5144 16.728 38.4547 18.096 37.8391C18.3135 36.2871 18.9345 35.2286 19.62 34.6283C14.2905 34.022 8.688 31.9625 8.688 22.7597C8.688 20.1373 9.6225 17.994 11.1585 16.3142C10.911 15.7065 10.0875 13.2657 11.3925 9.95888C11.3925 9.95888 13.4085 9.31336 17.9925 12.4206C19.908 11.8876 21.96 11.6222 24.0015 11.6114C26.04 11.6218 28.0935 11.8876 30.0105 12.4206C34.5915 9.31336 36.603 9.95888 36.603 9.95888C37.9125 13.2657 37.089 15.7065 36.8415 16.3142C38.3805 17.994 39.309 20.1373 39.309 22.7597C39.309 31.9849 33.6975 34.0161 28.3515 34.6104C29.2125 35.3519 29.9805 36.8168 29.9805 39.058C29.9805 41.2049 29.9671 43.0739 29.9582 44.3125C29.9538 44.9261 29.9505 45.385 29.9505 45.6462C29.9505 46.2564 30.3401 46.9613 31.4225 46.8287Z" 
+            clipRule="evenodd"
+          ></path>
+        </svg>
+      ),
+    },
+    {
+      name: "Twitter",
+      href: "https://twitter.com/your-org",
+      svg: (
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          enableBackground="new 0 0 100 100" 
+          viewBox="0 0 100 100" 
+          id="x"
+          className="w-6 h-6"
+        >
+          <g>
+            <path d="M69.7,8.7H30.4c-11.7,0-21.3,9.5-21.3,21.3v41.2c0,11.7,9.5,21.3,21.3,21.3h39.4c11.7,0,21.3-9.5,21.3-21.3V29.9 C91,18.2,81.5,8.7,69.7,8.7z M76.8,78.3l-15.4,0c-0.1,0-0.2,0-0.2-0.1L46.8,57.3c0,0-0.1,0-0.1,0C40.9,64,35.2,70.6,29.6,77.1 c-0.3,0.4-0.7,0.7-1,1c-0.1,0.1-0.2,0.1-0.3,0.1l-4.2,0c-0.1,0-0.2,0-0.1-0.1l20.5-23.8c0.1-0.1,0.1-0.2,0-0.3L24.1,24.3 c0,0,0-0.1,0-0.1h15.5c0.1,0,0.1,0,0.2,0.1L53.4,44c0,0,0,0,0.1,0l16.9-19.7c0.1-0.1,0.2-0.1,0.3-0.1l4.2,0c0.2,0,0.2,0.1,0.1,0.2 L55.6,46.9c-0.1,0.1-0.1,0.2,0,0.3l21.3,31C76.9,78.2,76.9,78.3,76.8,78.3z"></path>
+            <path d="M37.8,27.8C37.8,27.8,37.8,27.8,37.8,27.8l-6.7,0c-0.1,0-0.1,0.1-0.1,0.2l32.2,46.7c0,0,0,0,0.1,0h6.6 c0.1,0,0.1-0.1,0.1-0.2L37.8,27.8z"></path>
+          </g>
+        </svg>
+      ),
+    },
+    {
+      name: "LinkedIn",
+      href: "https://linkedin.com/company/your-org",
+      svg: (
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          fill="#fff" 
+          aria-label="LinkedIn" 
+          viewBox="0 0 512 512" 
+          id="linkedin"
+          className="w-6 h-6"
+        >
+          <rect width="512" height="512" fill="#0077b5" rx="15%"></rect>
+          <circle cx="142" cy="138" r="37"></circle>
+          <path stroke="#fff" strokeWidth="66" d="M244 194v198M142 194v198"></path>
+          <path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32"></path>
+        </svg>
+      ),
+    },
+    {
+      name: "Reddit",
+      href: "https://reddit.com/r/your-subreddit",
+      svg: (
+        <svg 
+          xmlns="http://www.w3.org/2000/svg" 
+          aria-label="Reddit" 
+          viewBox="0 0 512 512" 
+          id="reddit"
+          className="w-6 h-6"
+        >
+          <rect width="512" height="512" fill="#f40" rx="15%"></rect>
+          <g fill="#fff">
+            <ellipse cx="256" cy="307" rx="166" ry="117"></ellipse>
+            <circle cx="106" cy="256" r="42"></circle>
+            <circle cx="407" cy="256" r="42"></circle>
+            <circle cx="375" cy="114" r="32"></circle>
+          </g>
+          <g fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path stroke="#fff" strokeWidth="16" d="m256 196 23-101 73 15"></path>
+            <path stroke="#f40" strokeWidth="13" d="m191 359c33 25 97 26 130 0"></path>
+          </g>
+          <g fill="#f40">
+            <circle cx="191" cy="287" r="31"></circle>
+            <circle cx="321" cy="287" r="31"></circle>
+          </g>
+        </svg>
+      ),
+    },
+  ];
+  
 
 const links = [
-    {
-        group: 'Product',
-        items: [
-            {
-                title: 'Features',
-                href: '#',
-            },
-            {
-                title: 'Solution',
-                href: '#',
-            },
-            {
-                title: 'Customers',
-                href: '#',
-            },
-            {
-                title: 'Pricing',
-                href: '#',
-            },
-            {
-                title: 'Help',
-                href: '#',
-            },
-            {
-                title: 'About',
-                href: '#',
-            },
-        ],
-    },
-    {
-        group: 'Solution',
-        items: [
-            {
-                title: 'Startup',
-                href: '#',
-            },
-            {
-                title: 'Freelancers',
-                href: '#',
-            },
-            {
-                title: 'Organizations',
-                href: '#',
-            },
-            {
-                title: 'Students',
-                href: '#',
-            },
-            {
-                title: 'Collaboration',
-                href: '#',
-            },
-            {
-                title: 'Design',
-                href: '#',
-            },
-            {
-                title: 'Management',
-                href: '#',
-            },
-        ],
-    },
-    {
-        group: 'Company',
-        items: [
-            {
-                title: 'About',
-                href: '#',
-            },
-            {
-                title: 'Careers',
-                href: '#',
-            },
-            {
-                title: 'Blog',
-                href: '#',
-            },
-            {
-                title: 'Press',
-                href: '#',
-            },
-            {
-                title: 'Contact',
-                href: '#',
-            },
-            {
-                title: 'Help',
-                href: '#',
-            },
-        ],
-    },
-    {
-        group: 'Legal',
-        items: [
-            {
-                title: 'Licence',
-                href: '#',
-            },
-            {
-                title: 'Privacy',
-                href: '#',
-            },
-            {
-                title: 'Cookies',
-                href: '#',
-            },
-            {
-                title: 'Security',
-                href: '#',
-            },
-        ],
-    },
-]
+  { title: "Features", href: "#" },
+  { title: "Solution", href: "#" },
+  { title: "Customers", href: "#" },
+  { title: "Pricing", href: "#" },
+  { title: "Help", href: "#" },
+  { title: "About", href: "#" },
+];
 
 export default function FooterSection() {
-    const handleNewsletterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const formData = new FormData(e.currentTarget)
-        const email = formData.get('mail')
-        
-        toast.success('Successfully subscribed!', {
-            description: `We'll send updates to ${email}`,
-            position: 'bottom-right',
-            icon: (
-                <div className="h-6 w-6 rounded-full bg-green-600/20 flex items-center justify-center">
-                    <svg
-                        width="14"
-                        height="14"
-                        viewBox="0 0 14 14"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            d="M11.7253 3.73584L5.49772 9.96317L2.27466 6.73986"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            className="text-green-600 dark:text-green-500"
-                        />
-                    </svg>
-                </div>
-            ),
-            className: "border-border bg-background text-foreground",
-        })
-        
-        // Clear the input
-        ;(e.target as HTMLFormElement).reset()
-    }
+  return (
+    <AnimationContainer
+      className="footer-nuro"
+      animation="fade"
+      delay={0}
+      duration={0.8}
+      once={false}
+    >
+      <footer className="py-16 md:py-32">
+        <div className="mx-auto max-w-5xl px-6">
+          {/* Logo + Name aligned horizontally */}
+          <AnimationContainer
+            className="flex items-center justify-center space-x-3"
+            animation="fade"
+            delay={0}
+            duration={0.8}
+            once={false}
+          >
+            <Link href="/" aria-label="go home" className="flex items-center">
+              <Image
+                src="/nuro1.png"
+                alt="Logo"
+                width={40}
+                height={40}
+                className="w-10 h-10 hover:animate-spin"
+              />
+              <BlurredStagger
+                text="Nuro"
+                className="text-3xl font-bold text-black dark:text-white"
+              />
+            </Link>
+          </AnimationContainer>
 
-    return (
-        <>
-  
-  
-        <footer className="border-b bg-white pt-20 dark:bg-transparent">
-            <div className="mb-8 border-b md:mb-12">
-                <div className="mx-auto flex max-w-5xl flex-wrap items-end justify-between gap-6 px-6 pb-6">
-                    <Link
-                        href="/"
-                        aria-label="go home"
-                        className="block size-fit">
-                        <Image
-                                                                                   src="/nuro1.png"
-                                                                                   alt="Logo"
-                                                                                   width={40}
-                                                                                   height={40}
-                                                                                   className="size-20 w-20 "
-                                                                               />
-                    </Link>
-                    <div className="flex flex-wrap justify-center gap-6 text-sm">
-                        <Link
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="X/Twitter"
-                            className="text-muted-foreground hover:text-primary block">
-                            <svg
-                                className="size-6"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24">
-                                <path
-                                    fill="currentColor"
-                                    d="M10.488 14.651L15.25 21h7l-7.858-10.478L20.93 3h-2.65l-5.117 5.886L8.75 3h-7l7.51 10.015L2.32 21h2.65zM16.25 19L5.75 5h2l10.5 14z"></path>
-                            </svg>
-                        </Link>
-                        <Link
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="LinkedIn"
-                            className="text-muted-foreground hover:text-primary block">
-                            <svg
-                                className="size-6"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24">
-                                <path
-                                    fill="currentColor"
-                                    d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"></path>
-                            </svg>
-                        </Link>
-                        <Link
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Facebook"
-                            className="text-muted-foreground hover:text-primary block">
-                            <svg
-                                className="size-6"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24">
-                                <path
-                                    fill="currentColor"
-                                    d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95"></path>
-                            </svg>
-                        </Link>
-                        <Link
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Threads"
-                            className="text-muted-foreground hover:text-primary block">
-                            <svg
-                                className="size-6"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24">
-                                <path
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="1.5"
-                                    d="M19.25 8.505c-1.577-5.867-7-5.5-7-5.5s-7.5-.5-7.5 8.995s7.5 8.996 7.5 8.996s4.458.296 6.5-3.918c.667-1.858.5-5.573-6-5.573c0 0-3 0-3 2.5c0 .976 1 2 2.5 2s3.171-1.027 3.5-3c1-6-4.5-6.5-6-4"
-                                    color="currentColor"></path>
-                            </svg>
-                        </Link>
-                        <Link
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Instagram"
-                            className="text-muted-foreground hover:text-primary block">
-                            <svg
-                                className="size-6"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24">
-                                <path
-                                    fill="currentColor"
-                                    d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"></path>
-                            </svg>
-                        </Link>
-                        <Link
-                            href="#"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="TikTok"
-                            className="text-muted-foreground hover:text-primary block">
-                            <svg
-                                className="size-6"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 24 24">
-                                <path
-                                    fill="currentColor"
-                                    d="M16.6 5.82s.51.5 0 0A4.28 4.28 0 0 1 15.54 3h-3.09v12.4a2.59 2.59 0 0 1-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6c0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64c0 3.33 2.76 5.7 5.69 5.7c3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 0 0 4.3 1.38V7.3s-1.88.09-3.24-1.48"></path>
-                            </svg>
-                        </Link>
-                    </div>
-                </div>
-            </div>
-            <div className="mx-auto max-w-5xl px-6">
-                <div className="grid gap-12 md:grid-cols-5 md:gap-0 lg:grid-cols-4">
-                    <div className="grid grid-cols-2 gap-6 sm:grid-cols-4 md:col-span-5 md:row-start-1 lg:col-span-3">
-                        {links.map((link, index) => (
-                            <div
-                                key={index}
-                                className="space-y-4 text-sm">
-                                <span className="block font-medium">{link.group}</span>
-                                {link.items.map((item, index) => (
-                                    <Link
-                                        key={index}
-                                        href={item.href}
-                                        className="text-muted-foreground hover:text-primary block duration-150">
-                                        <span>{item.title}</span>
-                                    </Link>
-                                ))}
-                            </div>
-                        ))}
-                    </div>
-                    <form onSubmit={handleNewsletterSubmit} className="row-start-1 border-b pb-8 text-sm md:col-span-2 md:border-none lg:col-span-1">
-                        <div className="space-y-4">
-                            <Label
-                                htmlFor="mail"
-                                className="block font-medium">
-                                Newsletter
-                            </Label>
-                            <div className="flex gap-2">
-                                <Input
-                                    type="email"
-                                    id="mail"
-                                    name="mail"
-                                    placeholder="Your email"
-                                    className="h-8 text-sm"
-                                    required
-                                />
-                                <Button type="submit" size="sm">Submit</Button>
-                            </div>
-                            <span className="text-muted-foreground block text-sm">Dont miss any update!</span>
-                        </div>
-                    </form>
-                </div>
-                <div className="mt-12 flex flex-wrap items-end justify-between gap-6 border-t py-6">
-                    <small className="text-muted-foreground order-last block text-center text-sm md:order-first">© {new Date().getFullYear()} Tailark, All rights reserved</small>
-                    <form action="">
-                        <div className="relative">
-                            <ChevronsUpDown
-                                className="pointer-events-none absolute inset-y-0 right-2 my-auto opacity-75"
-                                size="0.75rem"
-                            />
-                            <select
-                                className={cn(
-                                    'border-input file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground shadow-xs flex h-9 w-full min-w-32 appearance-none rounded-md  bg-transparent px-3 py-1 text-base outline-none transition-[color,box-shadow] file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-                                    'focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]',
-                                    'aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive'
-                                )}
-                                name="language">
-                                <option value="1">English</option>
-                                <option value="2">Espanol</option>
-                                <option value="3">Français</option>
-                                <option value="4">Swahili</option>
-                                <option value="5">Lingala</option>
-                            </select>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </footer>
-        {/* <Aurora/> */}
-        </>
-    )
+          {/* Nav links */}
+          <AnimationContainer
+            className="mt-8 flex flex-wrap justify-center gap-6 text-sm"
+            animation="slide-up"
+            delay={0.1}
+            duration={0.6}
+            once={false}
+          >
+            {links.map((link, idx) => (
+              <motion.span
+                key={idx}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  delay: 0.1 + idx * 0.05,
+                  duration: 0.4,
+                  ease: [0.25, 0.1, 0.25, 1],
+                }}
+              >
+                <Link
+                  href={link.href}
+                  className={cn(
+                    "text-muted-foreground hover:text-primary block duration-150"
+                  )}
+                >
+                  {link.title}
+                </Link>
+              </motion.span>
+            ))}
+          </AnimationContainer>
+
+          {/* Social icons */}
+          <AnimationContainer
+            className="mt-8 flex justify-center space-x-6"
+            animation="fade"
+            delay={0.2}
+            duration={0.6}
+            once={false}
+          >
+            {socials.map((s, i) => (
+              <Link
+                key={i}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.name}
+                className="hover:scale-110 transition-transform duration-200"
+              >
+                {s.svg}
+              </Link>
+            ))}
+          </AnimationContainer>
+
+          {/* Copyright */}
+          <AnimationContainer
+            className="mt-8 block text-center text-sm text-muted-foreground"
+            animation="fade"
+            delay={0.3}
+            duration={0.6}
+            once={false}
+          >
+            © {new Date().getFullYear()}  Nuro, All rights reserved 
+          </AnimationContainer>
+        </div>
+      </footer>
+    </AnimationContainer>
+  );
 }
