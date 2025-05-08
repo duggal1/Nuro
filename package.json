@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbo",
-    "build": "next build",
-    "start": "next start",
+    "build": "bun run next build",
+    "start": "bun run next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "postinstall": "npm rebuild lightningcss"
   },
   "dependencies": {
     "@ai-sdk/google": "^1.2.14",
@@ -80,5 +81,8 @@
     "eslint-config-next": "15.3.1",
     "tailwindcss": "^4",
     "typescript": "^5.8.3"
+  },
+  "engines": {
+    "bun": ">=1.0.0"
   }
 }
