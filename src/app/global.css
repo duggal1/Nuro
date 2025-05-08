@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
@@ -44,6 +43,7 @@
   --color-gradient-color: var(----gradient-color);
   --animate-marquee: marquee var(--duration) infinite linear;
   --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  
   @keyframes marquee {
   from {
     transform: translateX(0);
