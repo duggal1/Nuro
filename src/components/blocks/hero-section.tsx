@@ -872,7 +872,7 @@ const InteractiveHero: React.FC = () => {
             
 
                     <video
-                        src="/video/hero.mp4"
+                        src="/"
                         className="w-full h-full object-cover"
                         autoPlay
                         loop
