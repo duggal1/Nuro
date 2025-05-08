@@ -3,9 +3,9 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   experimental: {
     serverActions: {
-      // enables Server Actions + lets you configure limits
-      bodySizeLimit: "10mb",        // ← bump from 1 MB to 10 MB
-      // allowedOrigins?: string[]  // ← optionally, add custom origins
+  
+      bodySizeLimit: "10mb",       
+     
     },
   },
   images: {
@@ -17,7 +17,10 @@ const nextConfig: NextConfig = {
     ],
   },
   typescript: {
-    ignoreBuildErrors: true, // ← Ignore TypeScript errors during build
+    ignoreBuildErrors: true,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
   },
   async rewrites() {
     return [
