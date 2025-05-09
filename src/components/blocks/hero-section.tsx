@@ -32,12 +32,13 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { BlurredStagger } from '../ui/blurred-stagger-text';
 import AnimationContainer from '../Contanier';
+import { Spotlight } from '../ui/spotlight-new';
 
 function cn(...classes: (string | undefined | null | boolean)[]): string {
   return classes.filter(Boolean).join(" ");
 }
 
-// --- RotatingText Component START ---
+
 interface RotatingTextRef {
   next: () => void;
   previous: () => void;
@@ -650,6 +651,7 @@ const InteractiveHero: React.FC = () => {
   return (
 
 <div className="relative bg-white dark:bg-black text-slate-900 dark:text-gray-50 min-h-screen flex flex-col overflow-x-hidden transition-colors duration-300">
+<Spotlight />
         <AnimationContainer animation="slide-up" delay={0.3} duration={0.8}>
              
 
@@ -793,9 +795,9 @@ const InteractiveHero: React.FC = () => {
                 <ShinyText text="Nuro Research Preview: Available Now 🎉" />
             </motion.div>
             <BlurredStagger 
-                        text="Nuro: Extreme-Scale for Your "
-                        className="text-6xl font-black text-slate-900 dark:text-white "
-                    />
+                text="Nuro: Extreme-Scale for Your "
+                className="text-6xl font-black text-slate-900 dark:text-white"
+            />
 
             <motion.h1
                 variants={headlineVariants}
@@ -806,10 +808,26 @@ const InteractiveHero: React.FC = () => {
               {' '}
                 <span className="inline-block h-[1.1em] sm:h-[1.15em] lg:h-[1.2em] xl:h-[1.2em] overflow-hidden align-bottom">
                     <RotatingText
-                        texts={['DNA', 'Genomes', 'Insights', 'Discoveries']}
-                        mainClassName="text-violet-500 dark:text-violet-700 mx-1"
-                        splitLevelClassName="leading-tight lg:leading-snug" 
-                        elementLevelClassName="leading-tight lg:leading-snug"
+                        texts={[
+                            '🧬 DNA',
+                            '🔄 Genomes',
+                            '💡 Insights',
+                            '🔍 Discoveries'
+                        ]}
+                        transition={{
+                            type: "spring",
+                            stiffness: 200,
+                            damping: 20,
+                            mass: 0.5,
+                        }}
+                        initial={{ y: "100%", opacity: 0, scale: 0.9 }}
+                        animate={{ y: 0, opacity: 1, scale: 1 }}
+                        exit={{ y: "-110%", opacity: 0, scale: 0.9 }}
+                        mainClassName="text-violet-500 dark:text-violet-700 mx-1 backdrop-blur-sm transition-all duration-300 ease-out"
+                        splitLevelClassName="leading-tight lg:leading-snug flex items-center gap-2 hover:scale-105 transform transition-transform" 
+                        elementLevelClassName="leading-tight lg:leading-snug inline-flex items-center [text-shadow:_0_2px_10px_rgb(139_92_246_/_30%)]"
+                        rotationInterval={3000}
+                        staggerDuration={0.02}
                     />
                 </span>
             </motion.h1>
@@ -872,7 +890,7 @@ const InteractiveHero: React.FC = () => {
             
 
                     <video
-                        src="/"
+                        src="/video/hero.mp4"
                         className="w-full h-full object-cover"
                         autoPlay
                         loop

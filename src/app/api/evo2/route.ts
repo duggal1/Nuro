@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { NextRequest, NextResponse } from 'next/server'
 
-// Configuration
-const API_URL = process.env.NVCF_URL ?? 'https://health.api.nvidia.com/v1/biology/arc/evo2-40b/generate'
+const EVO2_API_URL =
+  process.env.NVCF_URL ??
+  'https://health.api.nvidia.com/v1/biology/arc/evo2-40b/generate'
 const RUN_KEY = process.env.NVCF_RUN_KEY
-
 if (!RUN_KEY) {
   console.error('[EVO2] Missing RUN_KEY. Set NVCF_RUN_KEY env var.')
   throw new Error('NVCF_RUN_KEY env var is required')
@@ -27,16 +26,20 @@ export async function POST(request: NextRequest) {
   try {
     body = await request.json()
   } catch {
-    return NextResponse.json({ error: 'Invalid JSON in request body' }, { status: 400 })
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  if (!body.sequence || typeof body.sequence !== 'string') {
-    return NextResponse.json({ error: '`sequence` (string) is required in body' }, { status: 400 })
+  if (typeof body.sequence !== 'string') {
+    return NextResponse.json(
+      { error: '`sequence` (string) is required' },
+      { status: 400 }
+    )
   }
 
-  // Enforce max length to prevent timeouts
-  const MAX_INPUT_LEN = 1000
-  const seq = body.sequence.length > MAX_INPUT_LEN ? body.sequence.slice(0, MAX_INPUT_LEN) : body.sequence
+  const seq =
+    body.sequence.length > 1000
+      ? body.sequence.slice(0, 1000)
+      : body.sequence
 
   const payload = {
     sequence: seq,
@@ -52,7 +55,7 @@ export async function POST(request: NextRequest) {
 
   let res: Response
   try {
-    res = await fetch(API_URL, {
+    res = await fetch(EVO2_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,40 +65,33 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify(payload),
     })
   } catch (err) {
-    console.error('[EVO2] Network error when calling remote service', err)
-    return NextResponse.json({ error: 'Network error when calling remote service' }, { status: 502 })
+    console.error('[EVO2] Network error', err)
+    return NextResponse.json(
+      { error: 'Network error calling EVO2' },
+      { status: 502 }
+    )
   }
 
-  const contentType = res.headers.get('Content-Type') || ''
-
-  // Handle errors
-  if (contentType.includes('application/problem+json') || res.status >= 400) {
+  if (res.status >= 400) {
     let errData: any
     try {
       errData = await res.json()
     } catch {
-      const raw = await res.text()
-      console.error('[EVO2] Error parsing error response:', raw)
-      return NextResponse.json({ error: raw }, { status: res.status })
+      errData = await res.text()
     }
-    const message = errData.detail || errData.title || JSON.stringify(errData)
-    console.warn('[EVO2] Model error:', message)
-    return NextResponse.json({ error: message }, { status: res.status })
+    const msg =
+      errData.detail || errData.title || JSON.stringify(errData)
+    return NextResponse.json({ error: msg }, { status: res.status })
   }
 
-  // Return JSON
-  if (contentType.includes('application/json')) {
+  const ct = res.headers.get('Content-Type') || ''
+  if (ct.includes('application/json')) {
     const data = await res.json()
-    return NextResponse.json(data, { status: res.status })
+    return NextResponse.json(data)
   }
-
-  // Return plain text
-  if (contentType.includes('text/plain')) {
-    const text = await res.text()
-    return new NextResponse(text, { status: res.status, headers: { 'Content-Type': 'text/plain' } })
-  }
-
-  // Fallback: text
-  const fallback = await res.text()
-  return new NextResponse(fallback, { status: res.status })
+  const text = await res.text()
+  return new NextResponse(text, {
+    status: res.status,
+    headers: { 'Content-Type': ct || 'text/plain' },
+  })
 }
