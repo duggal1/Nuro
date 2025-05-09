@@ -685,7 +685,7 @@ const InteractiveHero: React.FC = () => {
                                 aria-label="home"
                                 className="flex items-center space-x-2 ">
                              <Image
-                                    src="/nuro1.png"
+                                    src="/nuro-new.png"
                                     alt="Logo"
                                     width={40}
                                     height={40}

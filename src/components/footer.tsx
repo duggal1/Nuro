@@ -132,7 +132,7 @@ export default function FooterSection() {
           >
             <Link href="/" aria-label="go home" className="flex items-center">
               <Image
-                src="/nuro1.png"
+                src="/nuro-new.png"
                 alt="Logo"
                 width={40}
                 height={40}
