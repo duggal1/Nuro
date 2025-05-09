@@ -25,27 +25,27 @@ interface AnimationContainerProps extends MotionProps {
   intensity?: IntensityLevel;
 }
 
-// 2025-level fluid motion curves - optimized for maximum smoothness
+// Enhanced ultra-smooth motion curves for 2025-level fluidity
 const fluidMotionCurves: Record<IntensityLevel, number[]> = {
-  subtle: [0.23, 0.82, 0.22, 1],
-  medium: [0.2, 0.94, 0.27, 1],
-  high: [0.17, 0.99, 0.3, 1],
-  ultra: [0.1, 1.15, 0.2, 1], // Increased overshoot for ultra level
+  subtle: [0.19, 0.87, 0.18, 1],
+  medium: [0.16, 0.96, 0.24, 1],
+  high: [0.13, 0.98, 0.26, 1],
+  ultra: [0.08, 1.12, 0.17, 1], // Refined overshoot with better return curve
 };
 
-// Distance/scale maps with proper typing
+// Refined distance/scale maps with proper typing
 const distanceMap: Record<IntensityLevel, number> = {
-  subtle: 15,
-  medium: 30,
-  high: 45,
-  ultra: 65, // Increased for more dramatic effect
+  subtle: 12, // More subtle initial position
+  medium: 28,
+  high: 42,
+  ultra: 60, // Balanced for dramatic effect but natural motion
 };
 
 const scaleMap: Record<IntensityLevel, number> = {
-  subtle: 0.97,
-  medium: 0.95,
-  high: 0.92,
-  ultra: 0.88, // More dramatic scale effect
+  subtle: 0.975,
+  medium: 0.952,
+  high: 0.93,
+  ultra: 0.90, // Balanced scale effect
 };
 
 // Type-safe animation generators
@@ -95,20 +95,28 @@ const animations = {
   },
 };
 
-// Spring physics configuration with proper typing
+// Ultra-smooth spring physics configuration with optimized values
 const springConfig: Record<IntensityLevel, { stiffness: number; damping: number; mass: number }> = {
-  subtle: { stiffness: 75, damping: 18, mass: 0.8 },
-  medium: { stiffness: 65, damping: 16, mass: 0.7 },
-  high: { stiffness: 55, damping: 14, mass: 0.6 },
-  ultra: { stiffness: 40, damping: 10, mass: 0.45 }, // Even more responsive
+  subtle: { stiffness: 85, damping: 22, mass: 0.75 }, // Increased stiffness for more immediate response
+  medium: { stiffness: 76, damping: 20, mass: 0.65 },
+  high: { stiffness: 65, damping: 18, mass: 0.55 }, // Better stiffness/damping ratio
+  ultra: { stiffness: 45, damping: 15, mass: 0.42 }, // Optimized for silky motion
 };
 
-// Velocity configuration with proper typing
+// Enhanced velocity configuration for butter-smooth motion
 const velocityControl: Record<IntensityLevel, number> = {
-  subtle: 1,
-  medium: 1.8,
-  high: 2.3,
-  ultra: 2.8, // Increased for even more initial momentum
+  subtle: 1.1, // Slight increase for smoother starts
+  medium: 1.9,
+  high: 2.4,
+  ultra: 2.7, // Balanced for smooth acceleration
+};
+
+// New friction coefficients for more natural deceleration
+const frictionCoefficients: Record<IntensityLevel, number> = {
+  subtle: 0.95,
+  medium: 0.92,
+  high: 0.88,
+  ultra: 0.85,
 };
 
 export const AnimationContainer = ({
@@ -123,24 +131,32 @@ export const AnimationContainer = ({
 }: AnimationContainerProps) => {
   const controls = useAnimation();
   
-  // Even more sensitive viewport detection
+  // Optimized viewport detection with dynamic threshold
   const [ref, inView] = useInView({
     triggerOnce: once,
-    threshold: 0.03, // Ultra-sensitive
-    rootMargin: "0px 0px -8% 0px", // Optimized trigger point
+    threshold: animation === "slide-up" ? 0.01 : 0.03, // Ultra-sensitive for slide-up
+    rootMargin: "0px 0px -5% 0px", // Refined trigger point for earlier animation
   });
 
   React.useEffect(() => {
+    let frameId: number;
+    
     if (inView) {
-      // Performance optimization with RAF
-      requestAnimationFrame(() => {
-        controls.start("animate");
+      // Double RAF for smoother animation scheduling
+      frameId = requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          controls.start("animate");
+        });
       });
     } else if (!once) {
-      requestAnimationFrame(() => {
+      frameId = requestAnimationFrame(() => {
         controls.start("initial");
       });
     }
+    
+    return () => {
+      if (frameId) cancelAnimationFrame(frameId);
+    };
   }, [inView, controls, once]);
 
   // Type-safe initial state getter
@@ -152,10 +168,11 @@ export const AnimationContainer = ({
     return animationObj.initial;
   };
 
-  // Enhanced transition with ultra-smooth configuration
+  // Ultra-enhanced transition with hyper-smooth configuration
   const getTransition = () => {
+    // Optimized base duration for slide-up animation
     const baseDuration = animation === "slide-up" ? 
-      (intensity === "ultra" ? 1 : 0.88) : duration;
+      (intensity === "ultra" ? 0.98 : 0.85) : duration;
     
     const transitionConfig = {
       delay,
@@ -163,15 +180,17 @@ export const AnimationContainer = ({
       ease: fluidMotionCurves[intensity],
     };
     
-    // Hyper-optimized slide-up configuration
+    // Super-optimized slide-up configuration with advanced physics
     if (animation === "slide-up") {
       return {
         ...transitionConfig,
         type: "spring",
         ...springConfig[intensity],
         velocity: velocityControl[intensity],
-        restSpeed: 0.0005, // Even more precise rest point
-        restDelta: 0.0005, // Ultra-fine control over animation ending
+        friction: frictionCoefficients[intensity], // Added friction for more natural deceleration
+        restSpeed: 0.0003, // Ultra-precise rest point
+        restDelta: 0.0002, // Micro-level control over animation ending
+        bounce: 0.02, // Subtle bounce for natural feel
       };
     }
     
@@ -183,13 +202,14 @@ export const AnimationContainer = ({
     };
   };
 
-  // Advanced GPU acceleration for silky smooth rendering
+  // Advanced GPU acceleration for buttery smooth rendering
   const gpuStyle = {
     willChange: "transform, opacity",
     backfaceVisibility: "hidden" as const,
-    perspective: 1000,
+    perspective: 1200, // Enhanced perspective
     WebkitFontSmoothing: "antialiased" as const,
-    transformStyle: "preserve-3d" as const, // Enhanced 3D context
+    transformStyle: "preserve-3d" as const,
+    contain: "paint" as const, // Performance optimization
   };
 
   return (
